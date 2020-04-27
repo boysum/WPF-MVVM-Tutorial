@@ -5,7 +5,7 @@
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:local="clr-namespace:WPFUI.Views"
 		mc:Ignorable="d"
-		Title="ShellView" Height="300" Width="300" FontSize="18" WindowStartupLocation="CenterScreen">
+		Title="ShellView" Height="300" Width="300" FontSize="18" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow">
 	<Grid>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="20"></ColumnDefinition>
@@ -15,7 +15,7 @@
 			<ColumnDefinition Width="auto"></ColumnDefinition>
 			<ColumnDefinition Width="*"></ColumnDefinition>
 			<ColumnDefinition Width="20"></ColumnDefinition>
-			
+
 		</Grid.ColumnDefinitions>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="20" />
@@ -29,17 +29,31 @@
 		</Grid.RowDefinitions>
 		<!-- Row 1 -->
 		<TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Path=FullName, Mode=OneWay}" Grid.ColumnSpan="2"></TextBlock>
-		
+
 		<!-- Row 2 -->
 		<TextBox Grid.Row="2" Grid.Column="1" MinWidth="100" x:Name="FirstName"></TextBox>
 		<TextBox Grid.Row="2" Grid.Column="2" MinWidth="100" x:Name="LastName"></TextBox>
-		
+
 		<!-- Row 3 -->
 		<ComboBox Grid.Row="3" Grid.Column="1" x:Name="People"
 				  SelectedItem="{Binding Path=SelectedPerson, Mode=OneWayToSource}"
 				  DisplayMemberPath="FirstName"></ComboBox>
 		<TextBlock Grid.Row="3" Grid.Column="2" x:Name="SelectedPerson_LastName" />
 		<!-- Row 4 -->
-		<Button Grid.Row="4" Grid.Column="1" x:Name="ClearText">Clear names</Button>
+		<Button Grid.Row="4" Grid.Column="1" x:Name="ClearText">
+			<Button.Background>
+				<RadialGradientBrush>
+					<GradientStop Color="#FFBD5C5C"/>
+					<GradientStop Color="#FFFF2121" Offset="1"/>
+				</RadialGradientBrush>
+			</Button.Background> Clear names
+		</Button>
+
+		<!-- Row 5 -->
+		<Button x:Name="LoadPageOne" Grid.Row="5" Grid.Column="1">Load First Page</Button>
+		<Button x:Name="LoadPageTwo" Grid.Row="5" Grid.Column="2">Load Second Page</Button>
+
+		<!-- Row 6 -->
+		<ContentControl Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="5" x:Name="ActiveItem"></ContentControl>
 	</Grid>
 </Window>
