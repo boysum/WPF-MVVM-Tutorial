@@ -4,12 +4,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WPFUI.Models;
 
 namespace WPFUI.ViewModels
 {
 	public class ShellViewModel : Screen 
 	{
 		private string _firstName = "Tim";
+		private string _lastName;
+		private BindableCollection<PersonModel> _people = new BindableCollection<PersonModel>();
+		private PersonModel _selectedPerson;
 
 		public  string FirstName
 		{
@@ -21,8 +25,6 @@ namespace WPFUI.ViewModels
 				NotifyOfPropertyChange(() => FullName);
 			}
 		}
-
-		private string _lastName;
 
 		public string LastName
 		{
@@ -41,9 +43,42 @@ namespace WPFUI.ViewModels
 			{ 
 				return $"{FirstName} {LastName}"; 
 			}			
+		}	
+
+		public BindableCollection<PersonModel> People
+		{
+			get { return _people; }
+			set { _people = value; }
+		}		
+
+		public PersonModel SelectedPerson
+		{
+			get { return _selectedPerson; }
+			set 
+			{ 
+				_selectedPerson = value;
+				NotifyOfPropertyChange(() => SelectedPerson);
+			}
 		}
 
+		public ShellViewModel()
+		{
+			People.Add(new PersonModel { FirstName = "Rob", LastName = "McGraw" });
+			People.Add(new PersonModel { FirstName = "Lefty", LastName = "Legs" });
+			People.Add(new PersonModel { FirstName = "Old", LastName = "Paint" });
+		}
 
+		public bool CanClearText(string firstName, string lastName)
+		{
+
+			return !string.IsNullOrWhiteSpace(firstName) || !string.IsNullOrWhiteSpace(lastName);
+		}
+
+		public void ClearText(string firstName, string lastName)
+		{
+			FirstName = "";
+			LastName = "";
+		}
 
 	}
 }
